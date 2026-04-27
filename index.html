@@ -17,26 +17,38 @@ body {
 
 /* Sections */
 section {
-  padding: 60px 25px;
+  padding: 60px 20px;
 }
 
-/* Hide secret */
 #secret {
   display: none;
 }
 
-/* Typing */
-.typing {
-  border-right: 2px solid;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-  animation: typing 6s steps(60, end) forwards;
+/* Chat style */
+.chat {
+  max-width: 400px;
+  margin: auto;
+  text-align: left;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+.msg {
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin: 10px 0;
+  width: fit-content;
+  animation: fadeIn 1s ease;
+}
+
+.me {
+  background: #5a4a42;
+  color: white;
+  margin-left: auto;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(10px);}
+  to {opacity:1; transform: translateY(0);}
 }
 
 /* Button */
@@ -46,8 +58,8 @@ button {
   border-radius: 25px;
   background: #5a4a42;
   color: white;
-  cursor: pointer;
   font-size: 16px;
+  cursor: pointer;
 }
 
 /* Hearts */
@@ -66,50 +78,30 @@ button {
 
 <body>
 
-<!-- MAIN PAGE -->
+<!-- MAIN -->
 <section id="main">
   <h1>For My Bro 🤍</h1>
   <h2 id="name"></h2>
 
-  <p class="typing">
-    Enaku nee just best friend illa… nee enoda happiness, enoda comfort, enoda everything 💖  
-    Nee vandhadhu en life la best thing.
+  <p>
+    Enaku nee just best friend illa… nee enoda happiness 💖  
+    Ready ah? I have something for you 😌
   </p>
 
-  <p class="typing">
-    Namma friendship… adhu vera level 🫶  
-    Nee irundha podhum everything feels okay.
-  </p>
-
-  <p class="typing">
-    No matter enna nadandhalum…  
-    naan un kooda dhaan irupen 🤍
-  </p>
-
-  <button onclick="checkPassword()">Open Secret 💌</button>
+  <button onclick="checkPassword()">Open Surprise 💌</button>
 </section>
 
-<!-- SECRET PAGE -->
+<!-- SECRET -->
 <section id="secret">
   <h1>Only for You 🤍</h1>
 
-  <p>
-    Nee enaku romba mukkiyam…  
-    un happiness dhaan enaku mukkiyam 💔  
-  </p>
+  <div class="chat" id="chatBox"></div>
 
-  <p>
-    Sometimes naan solla maaten… but I care about you more than anything 💖  
-  </p>
-
-  <p>
-    Life la enna nadandhalum…  
-    naan unna vida maaten 🤍  
-    Because nee enoda forever person.
-  </p>
-
-  <h2>Happy Birthday 🎂💖</h2>
+  <h2 id="finalMsg" style="display:none;">Happy Birthday 🎂💖</h2>
 </section>
+
+<!-- MUSIC -->
+<audio id="music" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
 
 <script>
 
@@ -125,30 +117,14 @@ function typeName() {
 }
 typeName();
 
-/* HINTS */
-let hints = [
-  "Hint: The way you call me 🤍",
-  "Clue: Our special word 😌",
-  "Think again… it's simple 🫶",
-  "Last chance… it's YOU 💖"
-];
-
-let attempt = 0;
-
 /* PASSWORD */
 function checkPassword() {
-  let pass = prompt(hints[attempt] || "Final try 💔");
+  let pass = prompt("Hint: The way you call me 🤍");
 
   if (pass && pass.toLowerCase() === "bro") {
     unlock();
   } else {
-    attempt++;
-
-    if (attempt < hints.length) {
-      alert("Wrong… but try again 🥺");
-    } else {
-      alert("Still wrong 😢 but I know you’ll get it ❤️");
-    }
+    alert("Wrong 😢 try again");
   }
 }
 
@@ -156,6 +132,49 @@ function checkPassword() {
 function unlock() {
   document.getElementById("main").style.display = "none";
   document.getElementById("secret").style.display = "block";
+
+  document.getElementById("music").play();
+
+  startChat();
+}
+
+/* CHAT MESSAGES */
+let messages = [
+  "Hey bro… 🥺",
+  "I wanted to tell you something…",
+  "Nee enaku romba mukkiyam 💖",
+  "Un kooda irundha moment ellam enaku special 🫶",
+  "Sometimes naan solla maaten…",
+  "But I care about you a lot 😌",
+  "No matter what happens…",
+  "Naan un kooda dhaan irupen 🤍",
+  "You are my forever person 💕"
+];
+
+let index = 0;
+
+function startChat() {
+  let chatBox = document.getElementById("chatBox");
+
+  let interval = setInterval(() => {
+    if (index >= messages.length) {
+      clearInterval(interval);
+      document.getElementById("finalMsg").style.display = "block";
+      return;
+    }
+
+    let msg = document.createElement("div");
+    msg.classList.add("msg");
+
+    if (index % 2 === 0) {
+      msg.classList.add("me");
+    }
+
+    msg.innerText = messages[index];
+    chatBox.appendChild(msg);
+
+    index++;
+  }, 1500);
 }
 
 /* HEARTS */
