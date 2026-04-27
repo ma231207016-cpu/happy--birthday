@@ -10,203 +10,184 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #fceae6, #f8d7cd, #f5e6dc);
+  background: linear-gradient(to bottom, #f5e6dc, #f0d8cc);
   text-align: center;
-  color: #4a3f38;
-  overflow-x: hidden;
+  color: #5a4a42;
 }
 
-/* PAGES */
-.page {
+/* Sections */
+section {
+  padding: 60px 20px;
+}
+
+#secret {
   display: none;
-  padding: 80px 25px;
-  animation: fade 1s ease;
 }
 
-.active {
-  display: block;
+/* Chat style */
+.chat {
+  max-width: 400px;
+  margin: auto;
+  text-align: left;
 }
 
-@keyframes fade {
-  from {opacity: 0; transform: translateY(30px);}
-  to {opacity: 1; transform: translateY(0);}
+.msg {
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin: 10px 0;
+  width: fit-content;
+  animation: fadeIn 1s ease;
 }
 
-/* TEXT */
-h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-size: 28px;
-}
-
-p {
-  font-size: 20px;
-  max-width: 600px;
-  margin: 15px auto;
-  line-height: 1.8;
-}
-
-/* BUTTON */
-button {
-  padding: 14px 28px;
-  border: none;
-  border-radius: 30px;
-  background: #4a3f38;
+.me {
+  background: #5a4a42;
   color: white;
-  font-size: 18px;
+  margin-left: auto;
+}
+
+@keyframes fadeIn {
+  from {opacity:0; transform: translateY(10px);}
+  to {opacity:1; transform: translateY(0);}
+}
+
+/* Button */
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #5a4a42;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
-  margin-top: 25px;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-
-/* HEART FLOAT */
+/* Hearts */
 .heart {
   position: fixed;
-  color: red;
+  color: pink;
   animation: floatUp 5s linear infinite;
-  opacity: 0.8;
 }
 
 @keyframes floatUp {
   from {transform: translateY(100vh);}
   to {transform: translateY(-10vh);}
 }
-
-/* HEARTBEAT */
-.heartbeat {
-  font-size: 90px;
-  animation: beat 1s infinite;
-}
-
-@keyframes beat {
-  0%, 100% {transform: scale(1);}
-  50% {transform: scale(1.25);}
-}
-
-/* FIREWORK */
-.firework {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-  from {opacity: 1; transform: translate(0,0);}
-  to {opacity: 0; transform: translate(var(--x), var(--y));}
-}
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
-<div class="page active" id="page1">
+<!-- MAIN -->
+<section id="main">
   <h1>For My Bro 🤍</h1>
-  <h2>Bro 💕</h2>
-  <p>Ready? I have something for you 😌</p>
-  <button onclick="checkPassword()">Start 💌</button>
-</div>
+  <h2 id="name"></h2>
 
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-  <p>You came into my life and became something really special 💖</p>
-  <p>Your presence alone makes everything feel better 🫶</p>
-  <button onclick="nextPage(3)">Next ➡️</button>
-</div>
+  <p>
+    Enaku nee just best friend illa… nee enoda happiness 💖  
+    Ready ah? I have something for you 😌
+  </p>
 
-<!-- PAGE 3 -->
-<div class="page" id="page3">
-  <p>All our memories together are like treasures to me 💕</p>
-  <p>Every moment with you feels meaningful 🥺</p>
-  <button onclick="nextPage(4)">Next ➡️</button>
-</div>
+  <button onclick="checkPassword()">Open Surprise 💌</button>
+</section>
 
-<!-- PAGE 4 -->
-<div class="page" id="page4">
-  <p>I may not always say it… but I truly care about you 💖</p>
-  <p>Your happiness matters so much to me 🤍</p>
-  <button onclick="nextPage(5)">Next ➡️</button>
-</div>
-
-<!-- FINAL PAGE -->
-<div class="page" id="page5">
+<!-- SECRET -->
+<section id="secret">
   <h1>Only for You 🤍</h1>
 
-  <div class="heartbeat">❤️</div>
+  <div class="chat" id="chatBox"></div>
 
-  <p>You are my forever person 🫶</p>
-  <h2>Happy Birthday 🎂💖</h2>
-</div>
+  <h2 id="finalMsg" style="display:none;">Happy Birthday 🎂💖</h2>
+</section>
 
+<!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
 
 <script>
+
+/* NAME ANIMATION */
+let text = "Bro 💕";
+let i = 0;
+function typeName() {
+  if (i < text.length) {
+    document.getElementById("name").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeName, 120);
+  }
+}
+typeName();
 
 /* PASSWORD */
 function checkPassword() {
   let pass = prompt("Hint: The way you call me 🤍");
 
   if (pass && pass.toLowerCase() === "bro") {
-    showPage(2);
-    document.getElementById("music").play();
+    unlock();
   } else {
     alert("Wrong 😢 try again");
   }
 }
 
-/* PAGE SWITCH */
-function showPage(num) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById("page" + num).classList.add("active");
+/* UNLOCK */
+function unlock() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("secret").style.display = "block";
 
-  if (num === 5) {
-    startFireworks();
-  }
+  document.getElementById("music").play();
+
+  startChat();
 }
 
-function nextPage(num) {
-  showPage(num);
+/* CHAT MESSAGES */
+let messages = [
+  "Hey bro… 🥺",
+  "I wanted to tell you something…",
+  "Nee enaku romba mukkiyam 💖",
+  "Un kooda irundha moment ellam enaku special 🫶",
+  "Sometimes naan solla maaten…",
+  "But I care about you a lot 😌",
+  "No matter what happens…",
+  "Naan un kooda dhaan irupen 🤍",
+  "You are my forever person 💕"
+];
+
+let index = 0;
+
+function startChat() {
+  let chatBox = document.getElementById("chatBox");
+
+  let interval = setInterval(() => {
+    if (index >= messages.length) {
+      clearInterval(interval);
+      document.getElementById("finalMsg").style.display = "block";
+      return;
+    }
+
+    let msg = document.createElement("div");
+    msg.classList.add("msg");
+
+    if (index % 2 === 0) {
+      msg.classList.add("me");
+    }
+
+    msg.innerText = messages[index];
+    chatBox.appendChild(msg);
+
+    index++;
+  }, 1500);
 }
 
-/* HEART FLOAT */
+/* HEARTS */
 setInterval(() => {
   let heart = document.createElement("div");
-  heart.innerHTML = "❤️";
+  heart.innerHTML = "💖";
   heart.classList.add("heart");
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = Math.random() * 20 + 25 + "px";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px";
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 5000);
 }, 500);
-
-/* FIREWORKS */
-function startFireworks() {
-  setInterval(() => {
-    for (let i = 0; i < 20; i++) {
-      let fw = document.createElement("div");
-      fw.classList.add("firework");
-
-      fw.style.setProperty('--x', (Math.random() - 0.5) * 200 + "px");
-      fw.style.setProperty('--y', (Math.random() - 0.5) * 200 + "px");
-
-      fw.style.left = Math.random() * 100 + "vw";
-      fw.style.top = Math.random() * 100 + "vh";
-      fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
-
-      document.body.appendChild(fw);
-      setTimeout(() => fw.remove(), 1000);
-    }
-  }, 800);
-}
 
 </script>
 
