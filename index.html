@@ -1,141 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Forever Bro 🤍</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: #4a4a4a;
-            overflow-x: hidden;
-            background: linear-gradient(-45deg, #ee9ca7, #ffdde1, #fbc2eb, #a6c1ee);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-        }
-        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; text-align: center; }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            padding: 35px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            max-width: 550px;
-            width: 95%;
-            border: 1px solid rgba(255,255,255,0.5);
-        }
+<meta charset="UTF-8">
+<title>For My Bro 🤍</title>
 
-        h1 { font-family: 'Dancing Script', cursive; font-size: 3.2rem; color: #d63384; margin-bottom: 20px; }
-        h2 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: #d63384; }
-        
-        .photo-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 25px 0; }
-        .polaroid {
-            background: white;
-            padding: 10px 10px 30px 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transform: rotate(-2deg);
-            width: 150px;
-            border-radius: 5px;
-        }
-        .polaroid:nth-child(even) { transform: rotate(3deg); }
-        .polaroid img { width: 100%; height: 130px; object-fit: cover; border-radius: 2px; }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
-        .btn-next {
-            margin-top: 25px;
-            padding: 15px 40px;
-            background: #d63384;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.3);
-            transition: 0.3s;
-        }
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #f5e6dc, #f0d8cc);
+  text-align: center;
+  color: #5a4a42;
+}
 
-        .btn-next:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(214, 51, 132, 0.4); }
+/* Sections */
+section {
+  padding: 60px 25px;
+}
 
-        .heart { position: fixed; font-size: 20px; user-select: none; pointer-events: none; z-index: 999; animation: moveHeart 4s linear forwards; }
-        @keyframes moveHeart { to { transform: translateY(-100vh) translateX(30px) rotate(360deg); opacity: 0; } }
+/* Hide secret initially */
+#secret {
+  display: none;
+}
 
-        .message-text { font-size: 1.1rem; line-height: 1.8; color: #555; }
-    </style>
+/* Typing */
+.typing {
+  border-right: 2px solid;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 6s steps(60, end) forwards;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Button */
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #5a4a42;
+  color: white;
+  cursor: pointer;
+}
+
+/* Hearts */
+.heart {
+  position: fixed;
+  color: pink;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(-10vh);}
+}
+</style>
 </head>
+
 <body>
 
-<section class="section">
-    <div class="glass-card">
-        <h1>To My Dear Bro... 🤍</h1>
-        <p id="type1" class="message-text" style="min-height: 80px;"></p>
-        <button class="btn-next" id="next1" style="display:none;" onclick="document.getElementById('soul').scrollIntoView({behavior:'smooth'})">Scroll deeper... 👇</button>
-    </div>
+<!-- MAIN -->
+<section id="main">
+  <h1>For My Bro 🤍</h1>
+  <h2 id="name"></h2>
+
+  <p class="typing">
+    Enaku nee just best friend illa… nee enoda happiness 💖  
+    Nee vandhadhu en life la best thing.
+  </p>
+
+  <p class="typing">
+    Namma friendship… adhu vera level 🫶  
+    Nee irundha podhum everything feels okay.
+  </p>
+
+  <button onclick="checkPassword()">Open Secret 💌</button>
 </section>
 
-<section class="section" id="soul">
-    <div class="glass-card">
-        <h2>More than a friend ✨</h2>
-        <p class="message-text" style="margin-top:20px;">
-            In a world where people come and go, you stayed. You didn’t just listen to my words; you listened to my silence. 
-            <br><br>
-            I don't say it enough, but having you as my brother is the greatest gift life ever gave me. You are my safe place, my loudest laugh, and my most trusted soul.
-        </p>
-        <div class="photo-container">
-            <div class="polaroid"><img src="https://via.placeholder.com/150" alt="Us"></div>
-            <div class="polaroid"><img src="https://via.placeholder.com/150" alt="Memories"></div>
-        </div>
-        <p class="message-text" style="font-style: italic; font-weight: 300;">
-            "Distance may change where we are, but it will never change who we are to each other."
-        </p>
-        <button class="btn-next" onclick="document.getElementById('surprise').scrollIntoView({behavior:'smooth'})">Final wish 💌</button>
-    </div>
-</section>
+<!-- SECRET -->
+<section id="secret">
+  <h1>Only for You 🤍</h1>
 
-<section class="section" id="surprise">
-    <div class="glass-card">
-        <h1>Happy Birthday 🎂</h1>
-        <p class="message-text">
-            I hope today treats you with the same kindness you show the world. May all your silent prayers be answered and your heart always stay this pure.
-            <br><br>
-            <strong>I'm always, always in your corner.</strong>
-        </p>
-        <button class="btn-next" onclick="celebrate()">Tap for Love 🎊</button>
-        <p id="end-note" style="display:none; margin-top:20px; font-weight:600; color:#d63384;">Forever & Always, Your Bestie 🫶</p>
-    </div>
+  <p>
+    Nee enaku romba mukkiyam…  
+    un happiness dhaan enaku mukkiyam 💔
+  </p>
+
+  <p>
+    Life la enna nadandhalum…  
+    naan unna vida maaten 🤍
+  </p>
+
+  <h2>Happy Birthday 🎂💖</h2>
 </section>
 
 <script>
-    const text = "They say family is by blood, but I believe family is by heart. I made this because some feelings are too big for just a text message...";
-    let i = 0;
-    function type() {
-        if (i < text.length) {
-            document.getElementById("type1").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(type, 45);
-        } else { document.getElementById("next1").style.display = "inline-block"; }
-    }
-    window.onload = () => { type(); setInterval(createHeart, 500); };
+/* Name animation */
+let text = "Your Name 💕";
+let i = 0;
+function typeName() {
+  if (i < text.length) {
+    document.getElementById("name").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeName, 100);
+  }
+}
+typeName();
 
-    function celebrate() {
-        document.getElementById('end-note').style.display = 'block';
-        confetti({ particleCount: 200, spread: 90, origin: { y: 0.6 } });
-    }
+/* Password */
+function checkPassword() {
+  let pass = prompt("Enter secret code 💖");
+  if (pass === "1234") {
+    document.getElementById("main").style.display = "none";
+    document.getElementById("secret").style.display = "block";
+  } else {
+    alert("Wrong password 😢");
+  }
+}
 
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = ['❤️', '✨', '🕊️', '🌸'][Math.floor(Math.random() * 4)];
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "100vh";
-        heart.style.opacity = Math.random();
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 4000);
-    }
-</script>
-</body>
-</html>
+/* Hearts */
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.innerHTML = "💖";
+  heart.classList.add("heart");
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 20 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}, 500);
+</script
