@@ -20,7 +20,7 @@ section {
   padding: 60px 25px;
 }
 
-/* Hide secret initially */
+/* Hide secret */
 #secret {
   display: none;
 }
@@ -47,6 +47,7 @@ button {
   background: #5a4a42;
   color: white;
   cursor: pointer;
+  font-size: 16px;
 }
 
 /* Hearts */
@@ -65,13 +66,13 @@ button {
 
 <body>
 
-<!-- MAIN -->
+<!-- MAIN PAGE -->
 <section id="main">
   <h1>For My Bro 🤍</h1>
   <h2 id="name"></h2>
 
   <p class="typing">
-    Enaku nee just best friend illa… nee enoda happiness 💖  
+    Enaku nee just best friend illa… nee enoda happiness, enoda comfort, enoda everything 💖  
     Nee vandhadhu en life la best thing.
   </p>
 
@@ -80,51 +81,84 @@ button {
     Nee irundha podhum everything feels okay.
   </p>
 
+  <p class="typing">
+    No matter enna nadandhalum…  
+    naan un kooda dhaan irupen 🤍
+  </p>
+
   <button onclick="checkPassword()">Open Secret 💌</button>
 </section>
 
-<!-- SECRET -->
+<!-- SECRET PAGE -->
 <section id="secret">
   <h1>Only for You 🤍</h1>
 
   <p>
     Nee enaku romba mukkiyam…  
-    un happiness dhaan enaku mukkiyam 💔
+    un happiness dhaan enaku mukkiyam 💔  
+  </p>
+
+  <p>
+    Sometimes naan solla maaten… but I care about you more than anything 💖  
   </p>
 
   <p>
     Life la enna nadandhalum…  
-    naan unna vida maaten 🤍
+    naan unna vida maaten 🤍  
+    Because nee enoda forever person.
   </p>
 
   <h2>Happy Birthday 🎂💖</h2>
 </section>
 
 <script>
-/* Name animation */
-let text = "Your Name 💕";
+
+/* NAME ANIMATION */
+let text = "Bro 💕";
 let i = 0;
 function typeName() {
   if (i < text.length) {
     document.getElementById("name").innerHTML += text.charAt(i);
     i++;
-    setTimeout(typeName, 100);
+    setTimeout(typeName, 120);
   }
 }
 typeName();
 
-/* Password */
+/* HINTS */
+let hints = [
+  "Hint: The way you call me 🤍",
+  "Clue: Our special word 😌",
+  "Think again… it's simple 🫶",
+  "Last chance… it's YOU 💖"
+];
+
+let attempt = 0;
+
+/* PASSWORD */
 function checkPassword() {
-  let pass = prompt("Enter secret code 💖");
-  if (pass === "1234") {
-    document.getElementById("main").style.display = "none";
-    document.getElementById("secret").style.display = "block";
+  let pass = prompt(hints[attempt] || "Final try 💔");
+
+  if (pass && pass.toLowerCase() === "bro") {
+    unlock();
   } else {
-    alert("Wrong password 😢");
+    attempt++;
+
+    if (attempt < hints.length) {
+      alert("Wrong… but try again 🥺");
+    } else {
+      alert("Still wrong 😢 but I know you’ll get it ❤️");
+    }
   }
 }
 
-/* Hearts */
+/* UNLOCK */
+function unlock() {
+  document.getElementById("main").style.display = "none";
+  document.getElementById("secret").style.display = "block";
+}
+
+/* HEARTS */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.innerHTML = "💖";
@@ -135,4 +169,8 @@ setInterval(() => {
 
   setTimeout(() => heart.remove(), 5000);
 }, 500);
-</script
+
+</script>
+
+</body>
+</html>
