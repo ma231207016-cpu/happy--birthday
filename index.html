@@ -10,16 +10,28 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #f5e6dc;
-  color: #5a4a42;
+  background: linear-gradient(to bottom, #f5e6dc, #f0d8cc);
   text-align: center;
-  transition: 1s;
+  color: #5a4a42;
 }
 
-.container {
-  max-width: 750px;
-  margin: auto;
-  padding: 60px 20px;
+.page {
+  display: none;
+  padding: 50px 20px;
+  animation: fade 1s ease;
+}
+
+.active { display: block; }
+
+@keyframes fade {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+p {
+  max-width: 700px;
+  margin: 15px auto;
+  line-height: 1.7;
 }
 
 button {
@@ -29,155 +41,133 @@ button {
   background: #5a4a42;
   color: white;
   cursor: pointer;
-  font-size: 16px;
-}
-
-#text {
-  margin-top: 30px;
-  font-size: 18px;
-  line-height: 1.8;
-  min-height: 200px;
-  text-align: left;
+  margin-top: 20px;
 }
 
 /* Heartbeat */
-.heart {
-  font-size: 70px;
+.heartbeat {
+  font-size: 80px;
   animation: beat 1s infinite;
-  text-align: center;
 }
 
 @keyframes beat {
-  0%,100% {transform: scale(1);}
-  50% {transform: scale(1.2);}
-}
-
-/* Glow */
-.glow {
-  text-align: center;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from {text-shadow: 0 0 10px #fff;}
-  to {text-shadow: 0 0 25px #ffb6a3;}
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.2);}
 }
 
 /* Fireworks */
-.fire {
+.firework {
   position: fixed;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  animation: boom 1s ease-out forwards;
+  animation: explode 1s ease-out forwards;
 }
 
-@keyframes boom {
-  to {
-    transform: translate(var(--x), var(--y));
-    opacity: 0;
-  }
+@keyframes explode {
+  from {opacity:1; transform:translate(0,0);}
+  to {opacity:0; transform:translate(var(--x), var(--y));}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>For My Bro 🤍</h1>
+  <h2>Bro 💕</h2>
+  <p>Ready ah? I have something for you 😌</p>
+  <button onclick="checkPassword()">Start 💌</button>
+</div>
 
-<h1>For My Bro 🤍</h1>
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <p>You’re not just my best friend — you’re my peace, my comfort, and the one place I can always be myself without trying.</p>
+  <p>Being with you feels easy, real, and right in every way. You understand me in ways no one else ever has.</p>
+  <button onclick="nextPage(3)">Next ➡️</button>
+</div>
 
-<button onclick="start()">Start 💌</button>
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <p>You’ve been my strength when I felt weak, my light when things felt dark, and my reason to smile.</p>
+  <p>You’ve stood by me, lifted me up, and reminded me of who I am.</p>
+  <button onclick="nextPage(4)">Next ➡️</button>
+</div>
 
-<div id="text"></div>
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <p>All the memories we’ve made — the laughs, the late-night talks — mean everything to me.</p>
+  <p>With you, even the simplest days feel special.</p>
+  <button onclick="nextPage(5)">Next ➡️</button>
+</div>
 
+<!-- PAGE 5 -->
+<div class="page" id="page5">
+  <p>You make me feel safe, valued, and truly understood.</p>
+  <p>I admire your strength, your kindness, and the way you care so deeply.</p>
+  <button onclick="nextPage(6)">Next ➡️</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="page6">
+  <p>I dream about everything that’s still waiting for us.</p>
+  <p>I imagine our future — still close, still together, always supporting each other.</p>
+  <button onclick="nextPage(7)">Next ➡️</button>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="page7">
+  <p>Trips, memories, laughter — no matter where life takes us, we’ll always find our way back.</p>
+  <p>Thank you for choosing me and this friendship.</p>
+  <button onclick="nextPage(8)">Final ➡️</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="page8">
+  <div class="heartbeat">💖</div>
+  <p>You mean more to me than words can ever express.</p>
+  <p>I love you endlessly, my person 💕✨</p>
+  <h2>Happy Birthday 🎂💖</h2>
 </div>
 
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
 
 <script>
-
-let message = `You’re not just my best friend — you’re my peace, my comfort, and the one place I can always be myself without trying. Being with you feels easy, real, and right in every way. You understand me in ways no one else ever has, and that means more than I can explain.
-
-You’ve been my strength when I felt weak, my light when things felt dark, and my reason to smile on days I didn’t want to. You’ve stood by me, lifted me up, and reminded me of who I am when I forgot.
-
-All the memories we’ve made — the laughs, the late-night talks, the random moments that turn into the best ones — they mean everything to me. With you, even the simplest days feel special, and every second feels like something I’ll cherish forever.
-
-You’re the one I can be completely honest with, the one who listens without judging, and the one who somehow always knows exactly what I need. You make me feel safe, valued, and truly understood.
-
-I admire your strength, your kindness, and the way you care so deeply for the people you love. You inspire me more than you know, and you make me want to be a better person every day.
-
-And I don’t just cherish what we have now — I dream about everything that’s still waiting for us. I can already imagine our future, where we’re both building our own lives, finding our partners, and still staying just as close.
-
-I picture our kids growing up together, sharing the same kind of bond we have — creating their own memories while we sit together, watching them and smiling about how it all came full circle.
-
-And of course, all the trips we’ve promised each other — the dream places we’ll explore, the late-night talks in new cities, the endless photos, and the laughter that will follow us wherever we go.
-
-Thank you for your patience, for your constant support, and for never giving up on me — even when I’m at my worst. Thank you for choosing to stay, for choosing this friendship, and for choosing me.
-
-I promise I’ll always be there for you — to listen, to support, to laugh, and to stand by you no matter what life brings.
-
-You mean more to me than words can ever fully express.
-
-I love you endlessly, my person 💕✨`;
-
-let i = 0;
-
-function start() {
+function checkPassword() {
   let pass = prompt("Hint: The way you call me 🤍");
   if (pass && pass.toLowerCase() === "bro") {
+    showPage(2);
     document.getElementById("music").play();
-    typeWriter();
   } else {
-    alert("Try again 💔");
+    alert("Wrong 😢 try again");
   }
 }
 
-function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, 20);
-  } else {
-    finalScene();
-  }
+function showPage(num) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page"+num).classList.add("active");
+
+  if(num===8) startFireworks();
 }
 
-function finalScene() {
-  setTimeout(() => {
-    document.body.style.background = "#000";
-    document.body.style.color = "#fff";
+function nextPage(num){ showPage(num); }
 
-    document.getElementById("text").innerHTML =
-      "<div class='heart'>💖</div>" +
-      "<h2 class='glow'>I love you endlessly, my person</h2>" +
-      "<h1 class='glow'>Bro 💕</h1>" +
-      "<h2>Happy Birthday 🎂</h2>";
-
-    fireworks();
-  }, 1000);
-}
-
-function fireworks() {
-  setInterval(() => {
-    for (let i = 0; i < 15; i++) {
-      let f = document.createElement("div");
-      f.className = "fire";
-
-      f.style.left = Math.random() * 100 + "vw";
-      f.style.top = Math.random() * 100 + "vh";
-
-      f.style.setProperty("--x", (Math.random() - 0.5) * 200 + "px");
-      f.style.setProperty("--y", (Math.random() - 0.5) * 200 + "px");
-
-      f.style.background = `hsl(${Math.random()*360},100%,60%)`;
-
-      document.body.appendChild(f);
-      setTimeout(() => f.remove(), 1000);
+function startFireworks(){
+  setInterval(()=>{
+    for(let i=0;i<20;i++){
+      let fw=document.createElement("div");
+      fw.classList.add("firework");
+      fw.style.setProperty('--x',(Math.random()-0.5)*200+"px");
+      fw.style.setProperty('--y',(Math.random()-0.5)*200+"px");
+      fw.style.left=Math.random()*100+"vw";
+      fw.style.top=Math.random()*100+"vh";
+      fw.style.background=`hsl(${Math.random()*360},100%,60%)`;
+      document.body.appendChild(fw);
+      setTimeout(()=>fw.remove(),1000);
     }
-  }, 800);
+  },800);
 }
-
 </script>
 
 </body>
