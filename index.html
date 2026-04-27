@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Bro 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        :root { --accent: #ff8fa3; --bg: #fdf6f0; --text: #5a4a42; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); text-align: center; }
+        section { padding: 60px 20px; max-width: 700px; margin: 0 auto; }
+        .container { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        h1 { color: var(--accent); }
+        .button { background: var(--accent); color: white; padding: 15px 35px; border: none; border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: 600; }
+        #finalMessage { display: none; margin-top: 30px; font-size: 1.4rem; color: var(--accent); }
+    </style>
+</head>
+<body>
+    <section>
+        <h1>To the one who means everything… 🤍</h1>
+        <p>This little space is only for you… my bro 🫶</p>
+    </section>
+    <section class="container">
+        <h2>Our Story ✨</h2>
+        <p>I still don’t know how it all started… but I’m so glad it did. You became my comfort, my happiness, and my person.</p>
+    </section>
+    <section class="container">
+        <h2>A Letter to My Forever Bro 🤍</h2>
+        <p><strong>Advance happy birthday bro 🤍✨</strong><br><br>
+        You understand me without words. You’ve been my strength, my smile, my comfort. I love you endlessly bro 💕</p>
+    </section>
+    <section style="padding-bottom: 100px;">
+        <button class="button" onclick="celebrate()">Click this if you love me 😌</button>
+        <div id="finalMessage">🎊 Happy Birthday Bro! 🎊<br>You’re everything to me 🫶</div>
+    </section>
+    <script>
+        function celebrate() {
+            document.getElementById("finalMessage").style.display = "block";
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff8fa3', '#ffffff'] });
+        }
+    </script>
+</body>
+</html>
