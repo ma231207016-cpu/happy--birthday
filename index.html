@@ -13,45 +13,24 @@ body {
   background: linear-gradient(to bottom, #f5e6dc, #f0d8cc);
   text-align: center;
   color: #5a4a42;
+  overflow-x: hidden;
 }
 
-/* Sections */
-section {
-  padding: 60px 20px;
-}
-
-#secret {
+.page {
   display: none;
+  padding: 60px 20px;
+  animation: fade 1s ease;
 }
 
-/* Chat style */
-.chat {
-  max-width: 400px;
-  margin: auto;
-  text-align: left;
+.active {
+  display: block;
 }
 
-.msg {
-  background: #fff;
-  padding: 10px 15px;
-  border-radius: 15px;
-  margin: 10px 0;
-  width: fit-content;
-  animation: fadeIn 1s ease;
+@keyframes fade {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
-.me {
-  background: #5a4a42;
-  color: white;
-  margin-left: auto;
-}
-
-@keyframes fadeIn {
-  from {opacity:0; transform: translateY(10px);}
-  to {opacity:1; transform: translateY(0);}
-}
-
-/* Button */
 button {
   padding: 12px 25px;
   border: none;
@@ -60,9 +39,10 @@ button {
   color: white;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-/* Hearts */
+/* HEART FLOAT */
 .heart {
   position: fixed;
   color: pink;
@@ -73,111 +53,106 @@ button {
   from {transform: translateY(100vh);}
   to {transform: translateY(-10vh);}
 }
+
+/* HEARTBEAT */
+.heartbeat {
+  font-size: 80px;
+  animation: beat 1s infinite;
+}
+
+@keyframes beat {
+  0%, 100% {transform: scale(1);}
+  50% {transform: scale(1.2);}
+}
+
+/* FIREWORK PARTICLES */
+.firework {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+  from {opacity: 1; transform: translate(0,0);}
+  to {opacity: 0; transform: translate(var(--x), var(--y));}
+}
 </style>
 </head>
 
 <body>
 
-<!-- MAIN -->
-<section id="main">
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
   <h1>For My Bro 🤍</h1>
-  <h2 id="name"></h2>
+  <h2>Bro 💕</h2>
+  <p>Ready ah? I have something for you 😌</p>
+  <button onclick="checkPassword()">Start 💌</button>
+</div>
 
-  <p>
-    Enaku nee just best friend illa… nee enoda happiness 💖  
-    Ready ah? I have something for you 😌
-  </p>
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <p>Nee vandhadhu en life la best thing 💖</p>
+  <p>Un presence dhaan enaku happiness 🫶</p>
+  <button onclick="nextPage(3)">Next ➡️</button>
+</div>
 
-  <button onclick="checkPassword()">Open Surprise 💌</button>
-</section>
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <p>Namma memories ellam enaku treasure 💕</p>
+  <p>Un kooda irundha moment ellam special 🥺</p>
+  <button onclick="nextPage(4)">Next ➡️</button>
+</div>
 
-<!-- SECRET -->
-<section id="secret">
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <p>Sometimes naan solla maaten… but I care a lot 💖</p>
+  <p>Un happiness dhaan enaku mukkiyam 🤍</p>
+  <button onclick="nextPage(5)">Next ➡️</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="page5">
   <h1>Only for You 🤍</h1>
 
-  <div class="chat" id="chatBox"></div>
+  <div class="heartbeat">💖</div>
 
-  <h2 id="finalMsg" style="display:none;">Happy Birthday 🎂💖</h2>
-</section>
+  <p>You are my forever person 🫶</p>
+  <h2>Happy Birthday 🎂💖</h2>
+</div>
 
-<!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
 
 <script>
-
-/* NAME ANIMATION */
-let text = "Bro 💕";
-let i = 0;
-function typeName() {
-  if (i < text.length) {
-    document.getElementById("name").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeName, 120);
-  }
-}
-typeName();
 
 /* PASSWORD */
 function checkPassword() {
   let pass = prompt("Hint: The way you call me 🤍");
 
   if (pass && pass.toLowerCase() === "bro") {
-    unlock();
+    showPage(2);
+    document.getElementById("music").play();
   } else {
     alert("Wrong 😢 try again");
   }
 }
 
-/* UNLOCK */
-function unlock() {
-  document.getElementById("main").style.display = "none";
-  document.getElementById("secret").style.display = "block";
+/* PAGE SWITCH */
+function showPage(num) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById("page" + num).classList.add("active");
 
-  document.getElementById("music").play();
-
-  startChat();
+  if (num === 5) {
+    startFireworks();
+  }
 }
 
-/* CHAT MESSAGES */
-let messages = [
-  "Hey bro… 🥺",
-  "I wanted to tell you something…",
-  "Nee enaku romba mukkiyam 💖",
-  "Un kooda irundha moment ellam enaku special 🫶",
-  "Sometimes naan solla maaten…",
-  "But I care about you a lot 😌",
-  "No matter what happens…",
-  "Naan un kooda dhaan irupen 🤍",
-  "You are my forever person 💕"
-];
-
-let index = 0;
-
-function startChat() {
-  let chatBox = document.getElementById("chatBox");
-
-  let interval = setInterval(() => {
-    if (index >= messages.length) {
-      clearInterval(interval);
-      document.getElementById("finalMsg").style.display = "block";
-      return;
-    }
-
-    let msg = document.createElement("div");
-    msg.classList.add("msg");
-
-    if (index % 2 === 0) {
-      msg.classList.add("me");
-    }
-
-    msg.innerText = messages[index];
-    chatBox.appendChild(msg);
-
-    index++;
-  }, 1500);
+function nextPage(num) {
+  showPage(num);
 }
 
-/* HEARTS */
+/* HEART FLOAT */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.innerHTML = "💖";
@@ -185,9 +160,31 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = Math.random() * 20 + 20 + "px";
   document.body.appendChild(heart);
-
   setTimeout(() => heart.remove(), 5000);
 }, 500);
+
+/* FIREWORKS */
+function startFireworks() {
+  setInterval(() => {
+    for (let i = 0; i < 20; i++) {
+      let fw = document.createElement("div");
+      fw.classList.add("firework");
+
+      let x = (Math.random() - 0.5) * 200 + "px";
+      let y = (Math.random() - 0.5) * 200 + "px";
+
+      fw.style.setProperty('--x', x);
+      fw.style.setProperty('--y', y);
+      fw.style.left = Math.random() * 100 + "vw";
+      fw.style.top = Math.random() * 100 + "vh";
+      fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
+
+      document.body.appendChild(fw);
+
+      setTimeout(() => fw.remove(), 1000);
+    }
+  }, 800);
+}
 
 </script>
 
