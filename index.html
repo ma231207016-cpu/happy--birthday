@@ -7,170 +7,123 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root {
-            --primary: #ff8fa3;
-            --bg: #fff5f7;
-            --text: #4a4a4a;
-        }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            color: #4a4a4a;
             overflow-x: hidden;
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ffd1ff);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
-
-        /* Floating Hearts Background */
-        .bg-hearts {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        h1 {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
+        @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; text-align: center; }
+        
         .glass-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(15px);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             max-width: 500px;
-            border: 1px solid rgba(255,255,255,0.3);
+            width: 95%;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
-        .typewriter {
-            font-size: 1.2rem;
-            min-height: 50px;
-            font-weight: 300;
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: #ff4d6d; margin-bottom: 20px; }
+        
+        /* Photo Styling */
+        .photo-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin: 20px 0; }
+        .polaroid {
+            background: white;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            width: 140px;
+            border-radius: 5px;
         }
+        .polaroid:nth-child(even) { transform: rotate(3deg); }
+        .polaroid img { width: 100%; height: 120px; object-fit: cover; border-radius: 2px; }
 
         .btn-next {
-            margin-top: 30px;
-            padding: 12px 25px;
-            background: var(--primary);
+            margin-top: 20px;
+            padding: 15px 35px;
+            background: #ff4d6d;
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            text-decoration: none;
-            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
         }
 
-        .photo-frame {
-            width: 250px;
-            height: 250px;
-            border: 8px solid white;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            transform: rotate(-3deg);
-            margin-bottom: 20px;
-            object-fit: cover;
-        }
-
-        #finalMessage { display: none; margin-top: 20px; font-weight: bold; color: var(--primary); font-size: 1.5rem; }
+        .heart { position: fixed; font-size: 20px; user-select: none; pointer-events: none; z-index: 999; animation: moveHeart 4s linear forwards; }
+        @keyframes moveHeart { to { transform: translateY(-100vh) translateX(20px) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
 
-<div class="bg-hearts" id="hearts"></div>
-
 <section class="section">
     <div class="glass-card">
         <h1>Hey Bro... 🤍</h1>
-        <p class="typewriter" id="type1"></p>
-        <button class="btn-next" onclick="scrollToSection('story')">Scroll Down 👇</button>
+        <p id="type1" style="font-size: 1.2rem; min-height: 60px;"></p>
+        <button class="btn-next" id="next1" style="display:none;" onclick="document.getElementById('memories').scrollIntoView({behavior:'smooth'})">See our memories 📸</button>
     </div>
 </section>
 
-<section class="section" id="story">
+<section class="section" id="memories">
     <div class="glass-card">
-        <h2>Our Bond ✨</h2>
-        <p style="margin-top:15px;">You're not just a friend; you're the family I chose. From all the late-night talks to the random inside jokes, life is just better with you in it.</p>
-        <div style="margin-top:20px;">🕊️ Always & Forever 🕊️</div>
-        <button class="btn-next" onclick="scrollToSection('surprise')">One Last Thing... 🤫</button>
+        <h2>Moments Together ✨</h2>
+        <div class="photo-container">
+            <div class="polaroid">
+                <img src="https://via.placeholder.com/150" alt="Memory 1">
+            </div>
+            <div class="polaroid">
+                <img src="https://via.placeholder.com/150" alt="Memory 2">
+            </div>
+            <div class="polaroid">
+                <img src="https://via.placeholder.com/150" alt="Memory 3">
+            </div>
+        </div>
+        <p>"A picture is worth a thousand words, but our memories are priceless."</p>
+        <button class="btn-next" onclick="document.getElementById('surprise').scrollIntoView({behavior:'smooth'})">The Best Part... 🎁</button>
     </div>
 </section>
 
 <section class="section" id="surprise">
-    <h1>Happy Birthday! 🎂</h1>
     <div class="glass-card">
-        <p>You deserve the world and more. May this year be as beautiful as your heart. I'm always in your corner!</p>
-        <button class="btn-next" onclick="popConfetti()">Click for a Surprise 🎈</button>
-        <div id="finalMessage">I Love You, Bro! 🫶✨</div>
+        <h1>Happy Birthday! 🎉</h1>
+        <p>I am so lucky to have a friend like you. Here is to many more years of laughing at nothing! 🥂</p>
+        <button class="btn-next" onclick="celebrate()">TAP FOR MAGIC 🎊</button>
     </div>
 </section>
 
 <script>
-    // Typewriter effect
-    const text = "I made this little space just for you, to remind you how much you mean to me...";
+    const text = "I wanted to make something special for you. Something that shows just how much our friendship means to me... are you ready?";
     let i = 0;
-    function typeWriter() {
+    function type() {
         if (i < text.length) {
             document.getElementById("type1").innerHTML += text.charAt(i);
             i++;
-            setTimeout(typeWriter, 50);
-        }
+            setTimeout(type, 50);
+        } else { document.getElementById("next1").style.display = "inline-block"; }
     }
-    window.onload = typeWriter;
+    window.onload = () => { type(); setInterval(createHeart, 500); };
 
-    // Smooth Scroll
-    function scrollToSection(id) {
-        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Confetti
-    function popConfetti() {
-        document.getElementById('finalMessage').style.display = 'block';
-        confetti({
-            particleCount: 200,
-            spread: 80,
-            origin: { y: 0.6 }
-        });
+    function celebrate() {
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     }
 
-    // Floating Hearts Logic
     function createHeart() {
         const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.style.position = 'absolute';
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.top = '100vh';
-        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-        heart.style.opacity = Math.random();
-        heart.style.transition = 'top 5s linear';
-        document.getElementById('hearts').appendChild(heart);
-
-        setTimeout(() => {
-            heart.style.top = '-10vh';
-        }, 100);
-
-        setTimeout(() => {
-            heart.remove();
-        }, 6000);
+        heart.classList.add('heart');
+        heart.innerHTML = ['❤️', '✨', '🌸'][Math.floor(Math.random() * 3)];
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 4000);
     }
-    setInterval(createHeart, 500);
 </script>
-
 </body>
 </html>
-
