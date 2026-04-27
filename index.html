@@ -13,7 +13,6 @@ body {
   background: linear-gradient(to bottom, #f5e6dc, #f0d8cc);
   text-align: center;
   color: #5a4a42;
-  overflow-x: hidden;
 }
 
 .page {
@@ -42,7 +41,7 @@ button {
   margin-top: 20px;
 }
 
-/* HEART FLOAT */
+/* Hearts */
 .heart {
   position: fixed;
   color: pink;
@@ -53,31 +52,6 @@ button {
   from {transform: translateY(100vh);}
   to {transform: translateY(-10vh);}
 }
-
-/* HEARTBEAT */
-.heartbeat {
-  font-size: 80px;
-  animation: beat 1s infinite;
-}
-
-@keyframes beat {
-  0%, 100% {transform: scale(1);}
-  50% {transform: scale(1.2);}
-}
-
-/* FIREWORK PARTICLES */
-.firework {
-  position: fixed;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-  from {opacity: 1; transform: translate(0,0);}
-  to {opacity: 0; transform: translate(var(--x), var(--y));}
-}
 </style>
 </head>
 
@@ -87,41 +61,91 @@ button {
 <div class="page active" id="page1">
   <h1>For My Bro 🤍</h1>
   <h2>Bro 💕</h2>
-  <p>Ready ah? I have something for you 😌</p>
+
+  <p>
+    Enaku nee just best friend illa… nee enoda happiness 💖  
+    Un presence dhaan en life ah beautiful aakudhu.
+  </p>
+
   <button onclick="checkPassword()">Start 💌</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
-  <p>Nee vandhadhu en life la best thing 💖</p>
-  <p>Un presence dhaan enaku happiness 🫶</p>
+  <p>
+    Namma first time pesinadhu enaku innum nyabagam…  
+    appo theriyala… nee en life la ivlo important aaguvanu.
+  </p>
+
+  <p>
+    Slowly… nee en daily routine la vandha…  
+    apram nee illa na day complete ah feel aagala.
+  </p>
+
   <button onclick="nextPage(3)">Next ➡️</button>
 </div>
 
 <!-- PAGE 3 -->
 <div class="page" id="page3">
-  <p>Namma memories ellam enaku treasure 💕</p>
-  <p>Un kooda irundha moment ellam special 🥺</p>
+  <p>
+    Namma fights, laughs, random talks…  
+    ellam enaku romba special 🫶  
+  </p>
+
+  <p>
+    Un kooda irundha moment ellam…  
+    enaku life la best memories 💖
+  </p>
+
   <button onclick="nextPage(4)">Next ➡️</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="page4">
-  <p>Sometimes naan solla maaten… but I care a lot 💖</p>
-  <p>Un happiness dhaan enaku mukkiyam 🤍</p>
+  <p>
+    Sometimes naan solla maaten…  
+    but I really care about you 🥺
+  </p>
+
+  <p>
+    Nee sad ah irundha enaku romba kashtam…  
+    nee happy ah irundha naanum happy 💕
+  </p>
+
   <button onclick="nextPage(5)">Next ➡️</button>
 </div>
 
-<!-- FINAL PAGE -->
+<!-- PAGE 5 -->
 <div class="page" id="page5">
+  <p>
+    No matter enna nadandhalum…  
+    naan un kooda dhaan irupen 🤍  
+  </p>
+
+  <p>
+    Nee enaku friend illa… family madhiri ❤️
+  </p>
+
+  <button onclick="nextPage(6)">Final ➡️</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="page6">
   <h1>Only for You 🤍</h1>
 
-  <div class="heartbeat">💖</div>
+  <p>
+    I don’t say this often… but you mean everything to me 💖  
+  </p>
 
-  <p>You are my forever person 🫶</p>
+  <p>
+    Life la enna nadandhalum… naan unna vida maaten.  
+    Because nee enoda forever person 🫶
+  </p>
+
   <h2>Happy Birthday 🎂💖</h2>
 </div>
 
+<!-- MUSIC -->
 <audio id="music" src="https://www.bensound.com/bensound-music/bensound-love.mp3"></audio>
 
 <script>
@@ -142,17 +166,13 @@ function checkPassword() {
 function showPage(num) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById("page" + num).classList.add("active");
-
-  if (num === 5) {
-    startFireworks();
-  }
 }
 
 function nextPage(num) {
   showPage(num);
 }
 
-/* HEART FLOAT */
+/* HEARTS */
 setInterval(() => {
   let heart = document.createElement("div");
   heart.innerHTML = "💖";
@@ -160,31 +180,9 @@ setInterval(() => {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = Math.random() * 20 + 20 + "px";
   document.body.appendChild(heart);
+
   setTimeout(() => heart.remove(), 5000);
 }, 500);
-
-/* FIREWORKS */
-function startFireworks() {
-  setInterval(() => {
-    for (let i = 0; i < 20; i++) {
-      let fw = document.createElement("div");
-      fw.classList.add("firework");
-
-      let x = (Math.random() - 0.5) * 200 + "px";
-      let y = (Math.random() - 0.5) * 200 + "px";
-
-      fw.style.setProperty('--x', x);
-      fw.style.setProperty('--y', y);
-      fw.style.left = Math.random() * 100 + "vw";
-      fw.style.top = Math.random() * 100 + "vh";
-      fw.style.background = `hsl(${Math.random()*360},100%,60%)`;
-
-      document.body.appendChild(fw);
-
-      setTimeout(() => fw.remove(), 1000);
-    }
-  }, 800);
-}
 
 </script>
 
