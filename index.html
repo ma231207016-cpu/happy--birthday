@@ -3,42 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Bro 🤍</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>For My Bestie 🤍</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --accent: #ff8fa3; --bg: #fdf6f0; --text: #5a4a42; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); text-align: center; }
-        section { padding: 60px 20px; max-width: 700px; margin: 0 auto; }
-        .container { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        h1 { color: var(--accent); }
-        .button { background: var(--accent); color: white; padding: 15px 35px; border: none; border-radius: 50px; cursor: pointer; font-size: 18px; font-weight: 600; }
-        #finalMessage { display: none; margin-top: 30px; font-size: 1.4rem; color: var(--accent); }
+        :root {
+            --primary: #ff8fa3;
+            --bg: #fff5f7;
+            --text: #4a4a4a;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Floating Hearts Background */
+        .bg-hearts {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            max-width: 500px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .typewriter {
+            font-size: 1.2rem;
+            min-height: 50px;
+            font-weight: 300;
+        }
+
+        .btn-next {
+            margin-top: 30px;
+            padding: 12px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            border: 8px solid white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(-3deg);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+
+        #finalMessage { display: none; margin-top: 20px; font-weight: bold; color: var(--primary); font-size: 1.5rem; }
     </style>
 </head>
 <body>
-    <section>
-        <h1>To the one who means everything… 🤍</h1>
-        <p>This little space is only for you… my bro 🫶</p>
-    </section>
-    <section class="container">
-        <h2>Our Story ✨</h2>
-        <p>I still don’t know how it all started… but I’m so glad it did. You became my comfort, my happiness, and my person.</p>
-    </section>
-    <section class="container">
-        <h2>A Letter to My Forever Bro 🤍</h2>
-        <p><strong>Advance happy birthday bro 🤍✨</strong><br><br>
-        You understand me without words. You’ve been my strength, my smile, my comfort. I love you endlessly bro 💕</p>
-    </section>
-    <section style="padding-bottom: 100px;">
-        <button class="button" onclick="celebrate()">Click this if you love me 😌</button>
-        <div id="finalMessage">🎊 Happy Birthday Bro! 🎊<br>You’re everything to me 🫶</div>
-    </section>
-    <script>
-        function celebrate() {
-            document.getElementById("finalMessage").style.display = "block";
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#ff8fa3', '#ffffff'] });
+
+<div class="bg-hearts" id="hearts"></div>
+
+<section class="section">
+    <div class="glass-card">
+        <h1>Hey Bro... 🤍</h1>
+        <p class="typewriter" id="type1"></p>
+        <button class="btn-next" onclick="scrollToSection('story')">Scroll Down 👇</button>
+    </div>
+</section>
+
+<section class="section" id="story">
+    <div class="glass-card">
+        <h2>Our Bond ✨</h2>
+        <p style="margin-top:15px;">You're not just a friend; you're the family I chose. From all the late-night talks to the random inside jokes, life is just better with you in it.</p>
+        <div style="margin-top:20px;">🕊️ Always & Forever 🕊️</div>
+        <button class="btn-next" onclick="scrollToSection('surprise')">One Last Thing... 🤫</button>
+    </div>
+</section>
+
+<section class="section" id="surprise">
+    <h1>Happy Birthday! 🎂</h1>
+    <div class="glass-card">
+        <p>You deserve the world and more. May this year be as beautiful as your heart. I'm always in your corner!</p>
+        <button class="btn-next" onclick="popConfetti()">Click for a Surprise 🎈</button>
+        <div id="finalMessage">I Love You, Bro! 🫶✨</div>
+    </div>
+</section>
+
+<script>
+    // Typewriter effect
+    const text = "I made this little space just for you, to remind you how much you mean to me...";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("type1").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
         }
-    </script>
+    }
+    window.onload = typeWriter;
+
+    // Smooth Scroll
+    function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Confetti
+    function popConfetti() {
+        document.getElementById('finalMessage').style.display = 'block';
+        confetti({
+            particleCount: 200,
+            spread: 80,
+            origin: { y: 0.6 }
+        });
+    }
+
+    // Floating Hearts Logic
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = '100vh';
+        heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+        heart.style.opacity = Math.random();
+        heart.style.transition = 'top 5s linear';
+        document.getElementById('hearts').appendChild(heart);
+
+        setTimeout(() => {
+            heart.style.top = '-10vh';
+        }, 100);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 6000);
+    }
+    setInterval(createHeart, 500);
+</script>
+
 </body>
 </html>
+
